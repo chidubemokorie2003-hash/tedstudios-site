@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
 
 <style>
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     background: #000;
     color: #fff;
     text-align: center;
@@ -18,27 +19,21 @@ h1 {
     font-size: 40px;
 }
 
-p {
-    color: #ccc;
-}
-
-.button {
-    display: inline-block;
-    padding: 12px 20px;
-    margin: 10px;
-    background: #fff;
-    color: #000;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
 .card {
     border: 1px solid #333;
-    border-radius: 12px;
     padding: 20px;
-    margin: 20px auto;
-    max-width: 400px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    background: #fff;
+    color: #000;
+    border-radius: 5px;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -48,9 +43,58 @@ p {
 <h1>TEDSTUDIOS</h1>
 <p>Your middleman to strong and reliable proxies</p>
 
-<a href="#" class="button">View Proxy List</a>
+<button onclick="window.location.href='#'">View Proxy List</button>
 
 <!-- STATIC -->
 <div class="card">
     <h2>Static Proxy</h2>
-    <p>$13
+    <p>$13 (~₦20,000)</p>
+    <button onclick="pay('https://paystack.shop/pay/6zdy84mkkt')">Buy Now</button>
+</div>
+
+<!-- ISP -->
+<div class="card">
+    <h2>ISP Proxy</h2>
+    <p>$XX</p>
+    <button onclick="pay('https://paystack.shop/pay/u9llhajynt')">Buy Now</button>
+</div>
+
+<!-- RESIDENTIAL 1-7 DAYS -->
+<div class="card">
+    <h2>Residential (1–7 Days)</h2>
+    <p>$XX</p>
+    <button onclick="pay('https://paystack.shop/pay/la1q41ioyb')">Buy Now</button>
+</div>
+
+<!-- RESIDENTIAL 2 WEEKS -->
+<div class="card">
+    <h2>Residential (2 Weeks)</h2>
+    <p>$XX</p>
+    <button onclick="pay('https://paystack.shop/pay/-q3xn8ucr-')">Buy Now</button>
+</div>
+
+<!-- RESIDENTIAL 1 MONTH -->
+<div class="card">
+    <h2>Residential (1 Month)</h2>
+    <p>$XX</p>
+    <button onclick="pay('https://paystack.shop/pay/r5ji48jo02')">Buy Now</button>
+</div>
+
+<!-- RESIDENTIAL 2 MONTHS -->
+<div class="card">
+    <h2>Residential (2 Months)</h2>
+    <p>$XX</p>
+    <button onclick="pay('https://paystack.shop/pay/6zbddme5zr')">Buy Now</button>
+</div>
+
+<script>
+function pay(link) {
+    let email = prompt("Enter your email:");
+    if(email) {
+        window.location.href = link + "?email=" + email;
+    }
+}
+</script>
+
+</body>
+</html>
