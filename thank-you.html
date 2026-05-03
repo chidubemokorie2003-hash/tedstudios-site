@@ -23,11 +23,16 @@ body {
 
 h1 {
   font-size: 28px;
+  margin-bottom: 10px;
 }
 
 p {
   color: #aaa;
   margin-top: 10px;
+}
+
+.success {
+  font-size: 40px;
 }
 
 .btn {
@@ -45,13 +50,15 @@ p {
 <body>
 
 <div class="box">
-  <h1>✅ Payment Successful</h1>
+  <div class="success">✅</div>
+
+  <h1>Payment Successful</h1>
 
   <p>Your payment has been received.</p>
 
-  <p>Your proxy will be delivered to your email shortly.</p>
+  <p>Your proxy will be sent to your email shortly.</p>
 
-  <p>Please allow a few minutes.</p>
+  <p><b>Please check your inbox (and spam folder).</b></p>
 
   <button class="btn" onclick="goHome()">Back to Home</button>
 </div>
