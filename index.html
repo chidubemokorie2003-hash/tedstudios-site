@@ -41,7 +41,7 @@ h1 {
 }
 
 button {
-  margin-top: 12px;
+  margin-top: 10px;
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
@@ -103,4 +103,105 @@ input {
   <h2>ISP Proxy</h2>
   <p class="price">$15</p>
   <p class="naira">₦22,500</p>
-  <button
+  <button onclick="openPayment(1500)">Buy Now</button>
+</div>
+
+<!-- RESIDENTIAL -->
+<div class="card">
+  <h2>Residential Proxies</h2>
+
+  <p class="small">As-You-Go (1–7 days)</p>
+  <p>$16 / ₦24,000</p>
+  <button onclick="openPayment(1600)">Buy Now</button>
+
+  <hr>
+
+  <p class="small">TedDouble (2 weeks+)</p>
+  <p>$26 / ₦39,000</p>
+  <button onclick="openPayment(2600)">Buy Now</button>
+
+  <p class="small">TedStable (1 month+)</p>
+  <p>$31 / ₦46,500</p>
+  <button onclick="openPayment(3100)">Buy Now</button>
+
+  <p class="small">TedBeta (2 months+, rollover)</p>
+  <p>$60 / ₦90,000</p>
+  <button onclick="openPayment(6000)">Buy Now</button>
+</div>
+
+<!-- MOBILE -->
+<div class="card">
+  <h2>Mobile Proxy</h2>
+  <p>Price varies depending on network</p>
+  <button onclick="contact()">Request Access</button>
+</div>
+
+<!-- BULK -->
+<div class="card">
+  <h2>Bulk Orders</h2>
+  <p class="small">Discount available</p>
+  <p>$2 OFF (~₦3,000)</p>
+  <button onclick="contact()">Contact for Bulk</button>
+</div>
+
+<!-- EXTRA INFO -->
+<p class="small">
+✔ Proxy Available | ✔ RDP Available | 🌍 All countries supported  
+</p>
+
+<p class="small">
+⚠ Pay before receiving • Trusted service  
+</p>
+
+<!-- PAYMENT MODAL -->
+<div id="paymentModal">
+  <div class="modal-box">
+    <h3>Enter your email</h3>
+    <input type="email" id="userEmail" placeholder="your@email.com">
+    <br><br>
+    <button onclick="startPayment()">Continue</button>
+    <br><br>
+    <button onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<script>
+let selectedAmount = 0;
+
+function openPayment(amount) {
+  selectedAmount = amount;
+  document.getElementById("paymentModal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("paymentModal").style.display = "none";
+}
+
+function startPayment() {
+  let email = document.getElementById("userEmail").value;
+
+  if (!email) {
+    alert("Enter your email");
+    return;
+  }
+
+  let handler = PaystackPop.setup({
+    key: 'YOUR_PUBLIC_KEY',
+    email: email,
+    amount: selectedAmount * 100,
+    currency: "USD",
+    callback: function(response) {
+      window.location.href = "/thank-you.html";
+    }
+  });
+
+  handler.openIframe();
+}
+
+function contact() {
+  window.location.href = "https://wa.me/2349046969917";
+}
+</script>
+
+</body>
+</html>
