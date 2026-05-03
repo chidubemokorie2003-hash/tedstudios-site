@@ -2,27 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>TEDSTUDIOS - Buy Proxy</title>
+  <title>TEDSTUDIOS - Proxies</title>
 
-  <!-- Paystack Script -->
   <script src="https://js.paystack.co/v1/inline.js"></script>
 
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: Arial;
       background: #000;
       color: #fff;
       text-align: center;
-      padding: 50px;
-    }
-
-    .box {
-      max-width: 400px;
-      margin: auto;
-      border: 1px solid #333;
       padding: 30px;
-      border-radius: 10px;
-      background: #111;
     }
 
     h1 {
@@ -30,22 +20,31 @@
     }
 
     input {
-      width: 90%;
+      width: 80%;
       padding: 10px;
-      margin-top: 15px;
+      margin: 20px 0;
       border-radius: 5px;
       border: none;
     }
 
+    .card {
+      border: 1px solid #333;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 400px;
+      border-radius: 10px;
+      background: #111;
+    }
+
     button {
-      margin-top: 20px;
-      padding: 12px 20px;
+      margin-top: 10px;
+      padding: 10px 15px;
       background: #00ffcc;
       color: #000;
       border: none;
       border-radius: 5px;
-      font-weight: bold;
       cursor: pointer;
+      font-weight: bold;
     }
 
     button:hover {
@@ -56,46 +55,75 @@
 
 <body>
 
-  <div class="box">
-    <h1>Buy Proxy</h1>
-    <p>Fast & Reliable Proxies - TEDSTUDIOS</p>
+  <h1>Buy Proxies</h1>
 
-    <!-- Email -->
-    <input type="email" id="email" placeholder="Enter your email" required>
+  <!-- Email input -->
+  <input type="email" id="email" placeholder="Enter your email" required>
 
-    <!-- Button -->
-    <button onclick="payWithPaystack()">
-      Buy Now - ₦5000
-    </button>
+  <!-- ISP Proxy -->
+  <div class="card">
+    <h2>ISP Proxy</h2>
+    <p>₦5000</p>
+    <button onclick="payWithPaystack(500000, 'ISP Proxy')">Buy Now</button>
   </div>
 
-  <script>
-    function payWithPaystack() {
-      let email = document.getElementById("email").value;
+  <!-- Residential 1–7 Days -->
+  <div class="card">
+    <h2>Residential (1–7 Days)</h2>
+    <p>₦3000</p>
+    <button onclick="payWithPaystack(300000, 'Residential 1-7 Days')">Buy Now</button>
+  </div>
 
-      if (!email) {
-        alert("Please enter your email");
-        return;
-      }
+  <!-- Residential 2 Weeks -->
+  <div class="card">
+    <h2>Residential (2 Weeks)</h2>
+    <p>₦6000</p>
+    <button onclick="payWithPaystack(600000, 'Residential 2 Weeks')">Buy Now</button>
+  </div>
 
-      let handler = PaystackPop.setup({
-        key: 'pk_live_a7913069a5ddd9b4621a9cd4590ac1fdf806fd54',
-        email: email,
-        amount: 500000, // ₦5000
+  <!-- Residential 1 Month -->
+  <div class="card">
+    <h2>Residential (1 Month)</h2>
+    <p>₦10000</p>
+    <button onclick="payWithPaystack(1000000, 'Residential 1 Month')">Buy Now</button>
+  </div>
 
-        callback: function(response) {
-          // Redirect after successful payment
-          window.location.href = "/thank-you.html";
-        },
+<script>
+function payWithPaystack(amount, plan) {
+  let email = document.getElementById("email").value;
 
-        onClose: function() {
-          alert('Transaction cancelled');
+  if (!email) {
+    alert("Please enter your email");
+    return;
+  }
+
+  let handler = PaystackPop.setup({
+    key: 'pk_live_a7913069a5ddd9b4621a9cd4590ac1fdf806fd54',
+    email: email,
+    amount: amount,
+
+    metadata: {
+      custom_fields: [
+        {
+          display_name: "Plan",
+          variable_name: "plan",
+          value: plan
         }
-      });
+      ]
+    },
 
-      handler.openIframe();
+    callback: function(response) {
+      window.location.href = "/thank-you.html";
+    },
+
+    onClose: function() {
+      alert('Transaction cancelled');
     }
-  </script>
+  });
+
+  handler.openIframe();
+}
+</script>
 
 </body>
 </html>
