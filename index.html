@@ -17,23 +17,48 @@ body {
 
 h1 {
     font-size: 40px;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #aaa;
+    margin-bottom: 20px;
 }
 
 .card {
     border: 1px solid #333;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
+    padding: 25px;
+    margin: 20px auto;
+    border-radius: 12px;
+    max-width: 400px;
+}
+
+.price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff; /* FIXED: force visible */
+    margin: 15px 0;
+}
+
+.naira {
+    display: block;
+    font-size: 14px;
+    color: #bbb;
 }
 
 button {
-    padding: 10px 20px;
+    padding: 12px 25px;
     margin-top: 10px;
     border: none;
     background: #fff;
     color: #000;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #ddd;
 }
 </style>
 </head>
@@ -41,57 +66,80 @@ button {
 <body>
 
 <h1>TEDSTUDIOS</h1>
-<p>Your middleman to strong and reliable proxies</p>
+<p class="subtitle">Your middleman to strong and reliable proxies</p>
 
-<button onclick="window.location.href='#'">View Proxy List</button>
+<button onclick="alert('Proxy list will be sent after purchase')">
+    View Proxy List
+</button>
 
 <!-- STATIC -->
 <div class="card">
     <h2>Static Proxy</h2>
-    <p>$13 (~₦20,000)</p>
+    <div class="price">
+        $13
+        <span class="naira">₦20,000</span>
+    </div>
     <button onclick="pay('https://paystack.shop/pay/6zdy84mkkt')">Buy Now</button>
 </div>
 
 <!-- ISP -->
 <div class="card">
     <h2>ISP Proxy</h2>
-    <p>$XX</p>
+    <div class="price">
+        $15
+        <span class="naira">₦23,000</span>
+    </div>
     <button onclick="pay('https://paystack.shop/pay/u9llhajynt')">Buy Now</button>
 </div>
 
 <!-- RESIDENTIAL 1-7 DAYS -->
 <div class="card">
     <h2>Residential (1–7 Days)</h2>
-    <p>$XX</p>
+    <div class="price">
+        $10
+        <span class="naira">₦15,000</span>
+    </div>
     <button onclick="pay('https://paystack.shop/pay/la1q41ioyb')">Buy Now</button>
 </div>
 
 <!-- RESIDENTIAL 2 WEEKS -->
 <div class="card">
     <h2>Residential (2 Weeks)</h2>
-    <p>$XX</p>
+    <div class="price">
+        $18
+        <span class="naira">₦28,000</span>
+    </div>
     <button onclick="pay('https://paystack.shop/pay/-q3xn8ucr-')">Buy Now</button>
 </div>
 
 <!-- RESIDENTIAL 1 MONTH -->
 <div class="card">
     <h2>Residential (1 Month)</h2>
-    <p>$XX</p>
+    <div class="price">
+        $30
+        <span class="naira">₦45,000</span>
+    </div>
     <button onclick="pay('https://paystack.shop/pay/r5ji48jo02')">Buy Now</button>
 </div>
 
 <!-- RESIDENTIAL 2 MONTHS -->
 <div class="card">
     <h2>Residential (2 Months)</h2>
-    <p>$XX</p>
+    <div class="price">
+        $55
+        <span class="naira">₦85,000</span>
+    </div>
     <button onclick="pay('https://paystack.shop/pay/6zbddme5zr')">Buy Now</button>
 </div>
 
 <script>
 function pay(link) {
-    let email = prompt("Enter your email:");
-    if(email) {
-        window.location.href = link + "?email=" + email;
+    let email = prompt("Enter your email (required):");
+
+    if (email && email.includes("@")) {
+        window.location.href = link + "?email=" + encodeURIComponent(email);
+    } else {
+        alert("Please enter a valid email.");
     }
 }
 </script>
