@@ -33,20 +33,11 @@ h1 {
 
 .price {
   font-size: 22px;
-  margin: 10px 0;
 }
 
 .naira {
   color: #aaa;
   font-size: 14px;
-}
-
-input {
-  padding: 10px;
-  margin-top: 10px;
-  width: 80%;
-  border-radius: 8px;
-  border: none;
 }
 
 button {
@@ -63,6 +54,34 @@ button {
   font-size: 13px;
   color: #aaa;
 }
+
+/* MODAL */
+#paymentModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: #111;
+  padding: 30px;
+  border-radius: 15px;
+  width: 300px;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 10px;
+}
 </style>
 </head>
 
@@ -76,8 +95,7 @@ button {
   <h2>Static Proxy</h2>
   <p class="price">$13</p>
   <p class="naira">₦19,500</p>
-  <input type="email" id="email1" placeholder="Enter your email">
-  <button onclick="pay('email1',1300)">Buy Now</button>
+  <button onclick="openPayment(1300)">Buy Now</button>
 </div>
 
 <!-- ISP -->
@@ -85,67 +103,4 @@ button {
   <h2>ISP Proxy</h2>
   <p class="price">$15</p>
   <p class="naira">₦22,500</p>
-  <input type="email" id="email2" placeholder="Enter your email">
-  <button onclick="pay('email2',1500)">Buy Now</button>
-</div>
-
-<!-- RESIDENTIAL -->
-<div class="card">
-  <h2>Residential Proxy</h2>
-  <p class="small">As-You-Go (1–7 days)</p>
-  <p class="price">$16</p>
-  <p class="naira">₦24,000</p>
-  <input type="email" id="email3" placeholder="Enter your email">
-  <button onclick="pay('email3',1600)">Buy Now</button>
-
-  <hr>
-
-  <p class="small">TedDouble (2 weeks+)</p>
-  <p>$26 / ₦39,000</p>
-
-  <p class="small">TedStable (1 month+)</p>
-  <p>$31 / ₦46,500</p>
-
-  <p class="small">TedBeta (2 months+)</p>
-  <p>$60 / ₦90,000</p>
-</div>
-
-<!-- MOBILE -->
-<div class="card">
-  <h2>Mobile Proxy</h2>
-  <p>Custom Pricing</p>
-  <input type="email" id="email4" placeholder="Enter your email">
-  <button onclick="contact()">Request Access</button>
-</div>
-
-<p class="small">Bulk discount available • RDP available • All countries supported</p>
-
-<script>
-function pay(emailId, amount) {
-  let email = document.getElementById(emailId).value;
-
-  if (!email) {
-    alert("Enter your email first");
-    return;
-  }
-
-  let handler = PaystackPop.setup({
-    key: 'YOUR_PUBLIC_KEY',
-    email: email,
-    amount: amount * 100,
-    currency: "USD",
-    callback: function(response) {
-      window.location.href = "/thank-you.html";
-    }
-  });
-
-  handler.openIframe();
-}
-
-function contact() {
-  window.location.href = "https://wa.me/2349046969917";
-}
-</script>
-
-</body>
-</html>
+  <button
