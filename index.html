@@ -71,7 +71,7 @@ button {
   width: 300px;
 }
 
-input {
+input, select {
   width: 90%;
   padding: 10px;
   border-radius: 8px;
@@ -151,9 +151,26 @@ input {
 <!-- PAYMENT MODAL -->
 <div id="paymentModal">
   <div class="modal-box">
-    <h3>Enter your email</h3>
+    <h3>Enter your details</h3>
+
     <input type="email" id="userEmail" placeholder="your@email.com">
+
+    <select id="userCountry">
+      <option value="">Select Proxy Location</option>
+      <option value="🇺🇸 USA">🇺🇸 USA</option>
+      <option value="🇬🇧 UK">🇬🇧 United Kingdom</option>
+      <option value="🇨🇦 Canada">🇨🇦 Canada</option>
+      <option value="🇩🇪 Germany">🇩🇪 Germany</option>
+      <option value="🇳🇬 Nigeria">🇳🇬 Nigeria</option>
+      <option value="🇫🇷 France">🇫🇷 France</option>
+      <option value="🇳🇱 Netherlands">🇳🇱 Netherlands</option>
+      <option value="🇮🇳 India">🇮🇳 India</option>
+      <option value="🇧🇷 Brazil">🇧🇷 Brazil</option>
+      <option value="🇿🇦 South Africa">🇿🇦 South Africa</option>
+    </select>
+
     <br><br>
+
     <button onclick="startPayment()">Continue</button>
     <br><br>
     <button onclick="closeModal()">Cancel</button>
@@ -174,17 +191,33 @@ function closeModal() {
 
 function startPayment() {
   let email = document.getElementById("userEmail").value;
+  let country = document.getElementById("userCountry").value;
 
   if (!email || !email.includes("@")) {
     alert("Enter a valid email");
     return;
   }
 
+  if (!country) {
+    alert("Please select a country");
+    return;
+  }
+
   let handler = PaystackPop.setup({
     key: 'pk_live_a7913069a5ddd9b4621a9cd4590ac1fdf806fd54',
     email: email,
-    amount: selectedAmount * 100, // convert to kobo
+    amount: selectedAmount * 100,
     currency: "NGN",
+
+    metadata: {
+      custom_fields: [
+        {
+          display_name: "Proxy Country",
+          variable_name: "proxy_country",
+          value: country
+        }
+      ]
+    },
 
     onClose: function() {
       closeModal();
