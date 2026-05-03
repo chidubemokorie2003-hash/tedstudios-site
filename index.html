@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <title>TEDSTUDIOS - Proxies</title>
 
+  <!-- Paystack -->
   <script src="https://js.paystack.co/v1/inline.js"></script>
 
   <style>
     body {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       background: #000;
       color: #fff;
       text-align: center;
@@ -17,34 +18,43 @@
 
     h1 {
       color: #00ffcc;
+      margin-bottom: 5px;
     }
 
-    input {
-      width: 80%;
-      padding: 10px;
-      margin: 20px 0;
-      border-radius: 5px;
-      border: none;
+    .tagline {
+      color: #ccc;
+      margin-bottom: 30px;
+      font-size: 14px;
     }
 
     .card {
       border: 1px solid #333;
-      padding: 20px;
+      border-radius: 10px;
+      padding: 25px;
       margin: 20px auto;
       max-width: 400px;
-      border-radius: 10px;
       background: #111;
+    }
+
+    .card h2 {
+      margin-bottom: 10px;
+    }
+
+    .price {
+      margin: 10px 0;
+      font-size: 18px;
+      color: #ccc;
     }
 
     button {
       margin-top: 10px;
-      padding: 10px 15px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
       background: #00ffcc;
       color: #000;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
       font-weight: bold;
+      cursor: pointer;
     }
 
     button:hover {
@@ -56,44 +66,42 @@
 <body>
 
   <h1>Buy Proxies</h1>
-
-  <!-- Email input -->
-  <input type="email" id="email" placeholder="Enter your email" required>
+  <div class="tagline">Vendor for all moderating accounts</div>
 
   <!-- ISP Proxy -->
   <div class="card">
     <h2>ISP Proxy</h2>
-    <p>₦5000</p>
-    <button onclick="payWithPaystack(500000, 'ISP Proxy')">Buy Now</button>
+    <div class="price">₦5000</div>
+    <button onclick="startPayment(500000, 'ISP Proxy')">Buy Now</button>
   </div>
 
-  <!-- Residential 1–7 Days -->
+  <!-- Residential (1–7 Days) -->
   <div class="card">
     <h2>Residential (1–7 Days)</h2>
-    <p>₦3000</p>
-    <button onclick="payWithPaystack(300000, 'Residential 1-7 Days')">Buy Now</button>
+    <div class="price">₦3000</div>
+    <button onclick="startPayment(300000, 'Residential 1-7 Days')">Buy Now</button>
   </div>
 
-  <!-- Residential 2 Weeks -->
+  <!-- Residential (2 Weeks) -->
   <div class="card">
     <h2>Residential (2 Weeks)</h2>
-    <p>₦6000</p>
-    <button onclick="payWithPaystack(600000, 'Residential 2 Weeks')">Buy Now</button>
+    <div class="price">₦6000</div>
+    <button onclick="startPayment(600000, 'Residential 2 Weeks')">Buy Now</button>
   </div>
 
-  <!-- Residential 1 Month -->
+  <!-- Residential (1 Month) -->
   <div class="card">
     <h2>Residential (1 Month)</h2>
-    <p>₦10000</p>
-    <button onclick="payWithPaystack(1000000, 'Residential 1 Month')">Buy Now</button>
+    <div class="price">₦10000</div>
+    <button onclick="startPayment(1000000, 'Residential 1 Month')">Buy Now</button>
   </div>
 
 <script>
-function payWithPaystack(amount, plan) {
-  let email = document.getElementById("email").value;
+function startPayment(amount, plan) {
+  let email = prompt("Enter your email:");
 
   if (!email) {
-    alert("Please enter your email");
+    alert("Email is required");
     return;
   }
 
