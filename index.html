@@ -14,9 +14,7 @@ body {
   padding: 20px;
 }
 
-h1 {
-  font-size: 40px;
-}
+h1 { font-size: 40px; }
 
 .subtitle {
   color: #aaa;
@@ -31,9 +29,7 @@ h1 {
   border-radius: 15px;
 }
 
-.price {
-  font-size: 22px;
-}
+.price { font-size: 22px; }
 
 .naira {
   color: #aaa;
@@ -95,7 +91,7 @@ input {
   <h2>Static Proxy</h2>
   <p class="price">$13</p>
   <p class="naira">₦19,500</p>
-  <button onclick="openPayment(1300)">Buy Now</button>
+  <button onclick="openPayment(19500)">Buy Now</button>
 </div>
 
 <!-- ISP -->
@@ -103,7 +99,7 @@ input {
   <h2>ISP Proxy</h2>
   <p class="price">$15</p>
   <p class="naira">₦22,500</p>
-  <button onclick="openPayment(1500)">Buy Now</button>
+  <button onclick="openPayment(22500)">Buy Now</button>
 </div>
 
 <!-- RESIDENTIAL -->
@@ -112,21 +108,21 @@ input {
 
   <p class="small">As-You-Go (1–7 days)</p>
   <p>$16 / ₦24,000</p>
-  <button onclick="openPayment(1600)">Buy Now</button>
+  <button onclick="openPayment(24000)">Buy Now</button>
 
   <hr>
 
   <p class="small">TedDouble (2 weeks+)</p>
   <p>$26 / ₦39,000</p>
-  <button onclick="openPayment(2600)">Buy Now</button>
+  <button onclick="openPayment(39000)">Buy Now</button>
 
   <p class="small">TedStable (1 month+)</p>
   <p>$31 / ₦46,500</p>
-  <button onclick="openPayment(3100)">Buy Now</button>
+  <button onclick="openPayment(46500)">Buy Now</button>
 
   <p class="small">TedBeta (2 months+, rollover)</p>
   <p>$60 / ₦90,000</p>
-  <button onclick="openPayment(6000)">Buy Now</button>
+  <button onclick="openPayment(90000)">Buy Now</button>
 </div>
 
 <!-- MOBILE -->
@@ -187,8 +183,8 @@ function startPayment() {
   let handler = PaystackPop.setup({
     key: 'pk_live_a7913069a5ddd9b4621a9cd4590ac1fdf806fd54',
     email: email,
-    amount: selectedAmount * 100,
-    currency: "USD",
+    amount: selectedAmount * 100, // convert to kobo
+    currency: "NGN",
 
     onClose: function() {
       closeModal();
