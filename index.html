@@ -1,135 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>TEDSTUDIOS - Proxies</title>
+<meta charset="UTF-8">
+<title>TEDSTUDIOS</title>
+<script src="https://js.paystack.co/v1/inline.js"></script>
 
-  <!-- Paystack -->
-  <script src="https://js.paystack.co/v1/inline.js"></script>
+<style>
+body {
+  background: #000;
+  color: #fff;
+  font-family: Arial;
+  text-align: center;
+  padding: 20px;
+}
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      text-align: center;
-      padding: 30px;
-    }
+h1 {
+  font-size: 40px;
+}
 
-    h1 {
-      color: #00ffcc;
-      margin-bottom: 5px;
-    }
+.subtitle {
+  color: #aaa;
+  margin-bottom: 30px;
+}
 
-    .tagline {
-      color: #ccc;
-      margin-bottom: 30px;
-      font-size: 14px;
-    }
+.card {
+  border: 1px solid #333;
+  padding: 25px;
+  margin: 20px auto;
+  width: 320px;
+  border-radius: 15px;
+}
 
-    .card {
-      border: 1px solid #333;
-      border-radius: 10px;
-      padding: 25px;
-      margin: 20px auto;
-      max-width: 400px;
-      background: #111;
-    }
+.price {
+  font-size: 22px;
+  margin: 10px 0;
+}
 
-    .card h2 {
-      margin-bottom: 10px;
-    }
+.naira {
+  color: #aaa;
+  font-size: 14px;
+}
 
-    .price {
-      margin: 10px 0;
-      font-size: 18px;
-      color: #ccc;
-    }
+input {
+  padding: 10px;
+  margin-top: 10px;
+  width: 80%;
+  border-radius: 8px;
+  border: none;
+}
 
-    button {
-      margin-top: 10px;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 6px;
-      background: #00ffcc;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-    }
+button {
+  margin-top: 12px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+}
 
-    button:hover {
-      background: #00cc99;
-    }
-  </style>
+.small {
+  font-size: 13px;
+  color: #aaa;
+}
+</style>
 </head>
 
 <body>
 
-  <h1>Buy Proxies</h1>
-  <div class="tagline">Vendor for all moderating accounts</div>
+<h1>TEDSTUDIOS</h1>
+<p class="subtitle">Your middleman to strong and reliable proxies</p>
 
-  <!-- ISP Proxy -->
-  <div class="card">
-    <h2>ISP Proxy</h2>
-    <div class="price">₦5000</div>
-    <button onclick="startPayment(500000, 'ISP Proxy')">Buy Now</button>
-  </div>
+<!-- STATIC -->
+<div class="card">
+  <h2>Static Proxy</h2>
+  <p class="price">$13</p>
+  <p class="naira">₦19,500</p>
+  <input type="email" id="email1" placeholder="Enter your email">
+  <button onclick="pay('email1',1300)">Buy Now</button>
+</div>
 
-  <!-- Residential (1–7 Days) -->
-  <div class="card">
-    <h2>Residential (1–7 Days)</h2>
-    <div class="price">₦3000</div>
-    <button onclick="startPayment(300000, 'Residential 1-7 Days')">Buy Now</button>
-  </div>
+<!-- ISP -->
+<div class="card">
+  <h2>ISP Proxy</h2>
+  <p class="price">$15</p>
+  <p class="naira">₦22,500</p>
+  <input type="email" id="email2" placeholder="Enter your email">
+  <button onclick="pay('email2',1500)">Buy Now</button>
+</div>
 
-  <!-- Residential (2 Weeks) -->
-  <div class="card">
-    <h2>Residential (2 Weeks)</h2>
-    <div class="price">₦6000</div>
-    <button onclick="startPayment(600000, 'Residential 2 Weeks')">Buy Now</button>
-  </div>
+<!-- RESIDENTIAL -->
+<div class="card">
+  <h2>Residential Proxy</h2>
+  <p class="small">As-You-Go (1–7 days)</p>
+  <p class="price">$16</p>
+  <p class="naira">₦24,000</p>
+  <input type="email" id="email3" placeholder="Enter your email">
+  <button onclick="pay('email3',1600)">Buy Now</button>
 
-  <!-- Residential (1 Month) -->
-  <div class="card">
-    <h2>Residential (1 Month)</h2>
-    <div class="price">₦10000</div>
-    <button onclick="startPayment(1000000, 'Residential 1 Month')">Buy Now</button>
-  </div>
+  <hr>
+
+  <p class="small">TedDouble (2 weeks+)</p>
+  <p>$26 / ₦39,000</p>
+
+  <p class="small">TedStable (1 month+)</p>
+  <p>$31 / ₦46,500</p>
+
+  <p class="small">TedBeta (2 months+)</p>
+  <p>$60 / ₦90,000</p>
+</div>
+
+<!-- MOBILE -->
+<div class="card">
+  <h2>Mobile Proxy</h2>
+  <p>Custom Pricing</p>
+  <input type="email" id="email4" placeholder="Enter your email">
+  <button onclick="contact()">Request Access</button>
+</div>
+
+<p class="small">Bulk discount available • RDP available • All countries supported</p>
 
 <script>
-function startPayment(amount, plan) {
-  let email = prompt("Enter your email:");
+function pay(emailId, amount) {
+  let email = document.getElementById(emailId).value;
 
   if (!email) {
-    alert("Email is required");
+    alert("Enter your email first");
     return;
   }
 
   let handler = PaystackPop.setup({
-    key: 'pk_live_a7913069a5ddd9b4621a9cd4590ac1fdf806fd54',
+    key: 'YOUR_PUBLIC_KEY',
     email: email,
-    amount: amount,
-
-    metadata: {
-      custom_fields: [
-        {
-          display_name: "Plan",
-          variable_name: "plan",
-          value: plan
-        }
-      ]
-    },
-
+    amount: amount * 100,
+    currency: "USD",
     callback: function(response) {
       window.location.href = "/thank-you.html";
-    },
-
-    onClose: function() {
-      alert('Transaction cancelled');
     }
   });
 
   handler.openIframe();
+}
+
+function contact() {
+  window.location.href = "https://wa.me/2349046969917";
 }
 </script>
 
