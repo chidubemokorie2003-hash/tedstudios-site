@@ -144,7 +144,6 @@ input {
   <button onclick="contact()">Contact for Bulk</button>
 </div>
 
-<!-- EXTRA INFO -->
 <p class="small">
 ✔ Proxy Available | ✔ RDP Available | 🌍 All countries supported  
 </p>
@@ -180,17 +179,24 @@ function closeModal() {
 function startPayment() {
   let email = document.getElementById("userEmail").value;
 
-  if (!email) {
-    alert("Enter your email");
+  if (!email || !email.includes("@")) {
+    alert("Enter a valid email");
     return;
   }
 
   let handler = PaystackPop.setup({
-    key: 'YOUR_PUBLIC_KEY',
+    key: 'pk_live_a7913069a5ddd9b4621a9cd4590ac1fdf806fd54',
     email: email,
     amount: selectedAmount * 100,
     currency: "USD",
+
+    onClose: function() {
+      closeModal();
+    },
+
     callback: function(response) {
+      closeModal();
+      alert("Payment successful!");
       window.location.href = "/thank-you.html";
     }
   });
