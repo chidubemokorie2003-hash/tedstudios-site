@@ -30,35 +30,25 @@ h1 { font-size: 40px; }
 }
 
 .price { font-size: 22px; }
-
-.naira {
-  color: #aaa;
-  font-size: 14px;
-}
+.naira { color: #aaa; font-size: 14px; }
 
 button {
   margin-top: 10px;
   padding: 10px 20px;
-  border: none;
   border-radius: 10px;
   background: #fff;
   color: #000;
   cursor: pointer;
 }
 
-.small {
-  font-size: 13px;
-  color: #aaa;
-}
+.small { font-size: 13px; color: #aaa; }
 
 /* MODAL */
 #paymentModal {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(0,0,0,0.85);
   justify-content: center;
   align-items: center;
@@ -88,72 +78,57 @@ input, select {
 
 <div class="card">
   <h2>Static Proxy</h2>
-  <p class="price">$13</p>
-  <p class="naira">₦19,500</p>
-  <button onclick="openPayment(19500)">Buy Now</button>
+  <p>$13 / ₦19,500</p>
+  <button onclick="openPayment(19500, 1300)">Buy Now</button>
 </div>
 
 <div class="card">
   <h2>ISP Proxy</h2>
-  <p class="price">$15</p>
-  <p class="naira">₦22,500</p>
-  <button onclick="openPayment(22500)">Buy Now</button>
+  <p>$15 / ₦22,500</p>
+  <button onclick="openPayment(22500, 1500)">Buy Now</button>
 </div>
 
 <div class="card">
   <h2>Residential Proxies</h2>
 
-  <p class="small">As-You-Go (1–7 days)</p>
+  <p class="small">As-You-Go</p>
   <p>$16 / ₦24,000</p>
-  <button onclick="openPayment(24000)">Buy Now</button>
+  <button onclick="openPayment(24000, 1600)">Buy Now</button>
 
   <hr>
 
-  <p class="small">TedDouble (2 weeks+)</p>
+  <p class="small">TedDouble</p>
   <p>$26 / ₦39,000</p>
-  <button onclick="openPayment(39000)">Buy Now</button>
+  <button onclick="openPayment(39000, 2600)">Buy Now</button>
 
-  <p class="small">TedStable (1 month+)</p>
+  <p class="small">TedStable</p>
   <p>$31 / ₦46,500</p>
-  <button onclick="openPayment(46500)">Buy Now</button>
+  <button onclick="openPayment(46500, 3100)">Buy Now</button>
 
-  <p class="small">TedBeta (2 months+, rollover)</p>
+  <p class="small">TedBeta</p>
   <p>$60 / ₦90,000</p>
-  <button onclick="openPayment(90000)">Buy Now</button>
+  <button onclick="openPayment(90000, 6000)">Buy Now</button>
 </div>
 
 <div class="card">
   <h2>Mobile Proxy</h2>
-  <p>Price varies depending on network</p>
   <button onclick="contact()">Request Access</button>
 </div>
 
 <div class="card">
   <h2>Bulk Orders</h2>
-  <p class="small">Discount available</p>
-  <p>$2 OFF (~₦3,000)</p>
   <button onclick="contact()">Contact for Bulk</button>
 </div>
 
-<p class="small">
-✔ Proxy Available | ✔ RDP Available | 🌍 All countries supported  
-</p>
-
-<p class="small">
-⚠ Pay before receiving • Trusted service  
-</p>
-
-<!-- PAYMENT MODAL -->
+<!-- MODAL -->
 <div id="paymentModal">
   <div class="modal-box">
     <h3>Enter your details</h3>
 
     <input type="email" id="userEmail" placeholder="your@email.com">
-
     <select id="userCountry"></select>
 
     <br><br>
-
     <button onclick="startPayment()">Continue</button>
     <br><br>
     <button onclick="closeModal()">Cancel</button>
@@ -161,10 +136,21 @@ input, select {
 </div>
 
 <script>
-let selectedAmount = 0;
+let selectedNGN = 0;
+let selectedUSD = 0;
+let detectedCurrency = "NGN";
 
-function openPayment(amount) {
-  selectedAmount = amount;
+// 🌍 Detect country
+fetch("https://ipapi.co/json/")
+.then(res => res.json())
+.then(data => {
+  if (data.country !== "NG") detectedCurrency = "USD";
+})
+.catch(()=>{});
+
+function openPayment(ngn, usd) {
+  selectedNGN = ngn;
+  selectedUSD = usd;
   document.getElementById("paymentModal").style.display = "flex";
 }
 
@@ -172,55 +158,20 @@ function closeModal() {
   document.getElementById("paymentModal").style.display = "none";
 }
 
-// FULL ISO COUNTRY LIST
-const countries = [
-"Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda",
-"Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain",
-"Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan",
-"Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria",
-"Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde",
-"Central African Republic","Chad","Chile","China","Colombia","Comoros",
-"Congo (Brazzaville)","Congo (Kinshasa)","Costa Rica","Croatia","Cuba",
-"Cyprus","Czech Republic","Denmark","Djibouti","Dominica",
-"Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea",
-"Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon",
-"Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea",
-"Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India",
-"Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan",
-"Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos",
-"Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania",
-"Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta",
-"Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova",
-"Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia",
-"Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria",
-"North Korea","North Macedonia","Norway","Oman","Pakistan","Palau",
-"Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines",
-"Poland","Portugal","Qatar","Romania","Russia","Rwanda",
-"Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines",
-"Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal",
-"Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia",
-"Solomon Islands","Somalia","South Africa","South Korea","South Sudan",
-"Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria",
-"Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga",
-"Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda",
-"Ukraine","United Arab Emirates","United Kingdom","United States",
-"Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam",
-"Yemen","Zambia","Zimbabwe"
-];
-
-// populate dropdown
+// Countries
+const countries = ["Nigeria","United States","United Kingdom","Canada","Germany","France","India","South Africa"];
 const select = document.getElementById("userCountry");
 
 let defaultOption = document.createElement("option");
-defaultOption.value = "";
 defaultOption.text = "Select Proxy Location";
+defaultOption.value = "";
 select.appendChild(defaultOption);
 
-countries.sort().forEach(country => {
-  let option = document.createElement("option");
-  option.value = country;
-  option.text = country;
-  select.appendChild(option);
+countries.forEach(c => {
+  let o = document.createElement("option");
+  o.value = c;
+  o.text = c;
+  select.appendChild(o);
 });
 
 function startPayment() {
@@ -233,38 +184,33 @@ function startPayment() {
   }
 
   if (!country) {
-    alert("Please select a country");
+    alert("Select a country");
     return;
   }
 
-  let handler = PaystackPop.setup({
+  let currency = detectedCurrency;
+  let amount = currency === "USD" ? selectedUSD : selectedNGN;
+
+  PaystackPop.setup({
     key: 'pk_live_a7913069a5ddd9b4621a9cd4590ac1fdf806fd54',
     email: email,
-    amount: selectedAmount * 100,
-    currency: "NGN",
+    amount: amount,
+    currency: currency,
 
     metadata: {
-      custom_fields: [
-        {
-          display_name: "Proxy Country",
-          variable_name: "proxy_country",
-          value: country
-        }
-      ]
+      custom_fields: [{
+        display_name: "Proxy Country",
+        value: country
+      }]
     },
 
-    onClose: function() {
+    callback: function() {
       closeModal();
-    },
-
-    callback: function(response) {
-      closeModal();
-      alert("Payment successful!");
       window.location.href = "/thank-you.html";
-    }
-  });
+    },
 
-  handler.openIframe();
+    onClose: closeModal
+  }).openIframe();
 }
 
 function contact() {
